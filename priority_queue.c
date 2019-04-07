@@ -24,7 +24,11 @@
  * /todo: Define priority values for the possible telemetry types.
  */
 
+
+/* Prototypes */
 typedef struct node downlink_node;
+
+int is_empty(downlink_node **head);
 
 static downlink_node* pq = NULL;
 
@@ -78,11 +82,13 @@ int peek(downlink_node** head)
  */
 int pop(downlink_node** head)
 {
-    downlink_node* temp = *head;
-    int data = (*head)->data;
-    (*head) = (*head)->next;
-    free(temp);
-    return data;
+    if (!is_empty(head)) {
+        downlink_node* temp = *head;
+        int data = (*head)->data;
+        (*head) = (*head)->next;
+        free(temp);
+        return data;
+    }
 }
 
 /*!
